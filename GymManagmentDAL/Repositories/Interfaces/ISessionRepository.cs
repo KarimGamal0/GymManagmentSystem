@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentDAL.Repositories.Interfaces
 {
-    internal interface ISessionRepository : IGenericRepository<Session>
+    public interface ISessionRepository : IGenericRepository<Session>
     {
         #region old-way
         //IEnumerable<Session> GetAll();
@@ -16,6 +16,9 @@ namespace GymManagmentDAL.Repositories.Interfaces
         //int Update(Session session);
         //int Delete(Session session);
         #endregion
+
+        IEnumerable<Session> GetAllSessionWithTrainerAndCategory();
+        int GetCountOfBookedSlot(int sessionId);
 
     }
 }
