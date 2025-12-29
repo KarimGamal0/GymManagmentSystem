@@ -16,6 +16,7 @@ namespace GymManagmentDAL.Entities
 
         public DateTime EndDate { get; set; }
 
+        //One-To-Many
         #region Session-Category
         public int CategoryId {  get; set; }
         public Category SessionCategory { get; set; } = null!;
@@ -25,7 +26,7 @@ namespace GymManagmentDAL.Entities
         public int TrainerId {  get; set; }
         public Trainer SessionTrainer { get; set; } = null!;
         #endregion
-
+        //Many-To-Many
         #region Session-MemberSession
         public ICollection<MemberSession> SessionMembers { get; set; } = null!;
         #endregion

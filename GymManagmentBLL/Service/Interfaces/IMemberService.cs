@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentBLL.Service.Interfaces
 {
-    internal interface IMemberService
+    public interface IMemberService
     {
         IEnumerable<MemberViewModels> GetAllMembers();
 
@@ -20,8 +20,8 @@ namespace GymManagmentBLL.Service.Interfaces
 
         MemberToUpdateViewModel? GetMemberToUpdate(int MemberId);
 
-        bool UpdateMember(int memberId, MemberToUpdateViewModel memberToUpdate);
+        bool UpdateMemberDetails(int memberId, MemberToUpdateViewModel memberToUpdate);
 
-        bool DeleteMember(int memberId);
+        bool RemoveMember(int memberId);
     }
 }

@@ -12,6 +12,7 @@ namespace GymManagmentDAL.Entities
         //Join Date = Created At of base entity
         public string? Photo { get; set; }
 
+        //One-to-one Realtionship
         #region Healthrecord
         public HealthRecord HealthRecord { get; set; } = null!;
         #endregion
@@ -20,6 +21,7 @@ namespace GymManagmentDAL.Entities
         public ICollection<Membership> Memberships { get; set; } = null!;
         #endregion
 
+        //Many-to-many Realtionship
         #region Member-MemberSession
         public ICollection<MemberSession> MemberSessions { get; set; } = null!;
         #endregion

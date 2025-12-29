@@ -29,7 +29,7 @@ namespace GymManagmentDAL.Data.DataSeeding
 
                 if (!HasPlans)
                 {
-                    var Plans = LoadDataFromJsonFile<Plane>("plans.json");
+                    var Plans = LoadDataFromJsonFile<Plan>("plans.json");
                     dbContext.Plans.AddRange(Plans);
                 }
 

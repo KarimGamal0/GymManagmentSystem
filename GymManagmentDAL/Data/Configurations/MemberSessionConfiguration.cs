@@ -15,7 +15,7 @@ namespace GymManagmentDAL.Data.Configurations
         {
             builder.Property(x => x.CreatedAt).HasColumnName("BookingDate").HasDefaultValueSql("GETDATE()");
 
-            //Many to Many Realtionship
+            //Many-to-Many Realtionship
             builder.HasKey(x => new { x.MemberId, x.SessionId });
             builder.Ignore(x => x.Id);
         }

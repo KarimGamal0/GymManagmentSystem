@@ -23,6 +23,7 @@ namespace GymManagmentDAL.Data.Configurations
                 tb.HasCheckConstraint("GymUserValidPhoneCheck", "Phone like '01%' and phone not like '%[^0-9]%'");
             });
 
+            //helps optimize database query performance for filtering and sorting operations.
             builder.HasIndex(x => x.Email).IsUnique();
             builder.HasIndex(x => x.Phone).IsUnique();
 

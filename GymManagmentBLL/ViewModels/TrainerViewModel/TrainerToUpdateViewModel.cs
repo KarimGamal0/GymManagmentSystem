@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GymManagmentDAL.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentBLL.ViewModels.TrainerViewModel
 {
-    internal class TrainerToUpdateViewModel
+    public class TrainerToUpdateViewModel
     {
         public string Name { get; set; } = null!; // Property Name is visible
 
@@ -22,7 +23,7 @@ namespace GymManagmentBLL.ViewModels.TrainerViewModel
 
         // Phone Validation (Visible)
         [Required(ErrorMessage = "Phone Is Required!")]
-        [RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phone Number Must Be Valid Egyptian PhoneNumber!")] // Partially visible in first set of images
+        //[RegularExpression(@"^(010|011|012|015)\d{8}$", ErrorMessage = "Phone Number Must Be Valid Egyptian PhoneNumber!")] // Partially visible in first set of images
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; } = null!;
 
@@ -41,5 +42,9 @@ namespace GymManagmentBLL.ViewModels.TrainerViewModel
         [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessage = "City Must Be Between 2 and 30 Chars!")]
         [RegularExpression(@"[a-zA-Z\s]*$", ErrorMessage = "City Can Contain Only Letters And Spaces!")]
         public string City { get; set; } = null!;
+
+        [Required(ErrorMessage = "Speciality Is Required!")]
+        public Speciality Speciality { get; set; }
+
     }
 }

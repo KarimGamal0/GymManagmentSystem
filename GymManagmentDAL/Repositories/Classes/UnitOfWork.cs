@@ -17,7 +17,7 @@ namespace GymManagmentDAL.Repositories.Classes
         public UnitOfWork(GymDBContext dbContext, ISessionRepository sessionRepository)
         {
             _dbContext = dbContext;
-            this.SessionRepository = sessionRepository;
+            SessionRepository = sessionRepository;
         }
 
         public ISessionRepository SessionRepository { get; }

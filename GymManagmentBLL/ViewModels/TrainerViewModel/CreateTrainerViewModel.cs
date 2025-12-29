@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentBLL.ViewModels.TrainerViewModel
 {
-    internal class CreateTrainerViewModel
+    public class CreateTrainerViewModel
     {
         [Required(ErrorMessage = "Name Is Required!")]
         [StringLength(maximumLength: 50, MinimumLength = 2, ErrorMessage = "Name Must Be Between 2 and 30 Chars!")]
@@ -18,14 +18,13 @@ namespace GymManagmentBLL.ViewModels.TrainerViewModel
 
         [Required(ErrorMessage = "Email Is Required!")]
         [EmailAddress(ErrorMessage = "Invalid Email!")]
-
         [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = "Email Must Be Between 5 and 100 Chars!")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Phone Is Required!")]
         [Phone(ErrorMessage = "Invalid Phone Number!")]
-        [RegularExpression(@"^(\+201)[0-2|5]\d{8}$", ErrorMessage = "Phone Number Must Be Valid Egyptian PhoneNumber!")]
+        //[RegularExpression(@"^(\+201)[0-2|5]\d{8}$", ErrorMessage = "Phone Number Must Be Valid Egyptian PhoneNumber!")]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; } = null!;
 
@@ -49,7 +48,7 @@ namespace GymManagmentBLL.ViewModels.TrainerViewModel
         [RegularExpression(@"[a-zA-Z\s]*$", ErrorMessage = "City Can Contain Only Letters And Spaces!")]
         public string City { get; set; } = null!;
 
-        [Required(ErrorMessage = "Health Record Is Required!")]
-        public HealthRecordViewModel HealthRecord { get; set; } = null!;
+        [Required(ErrorMessage = "Speciality Is Required!")]
+        public Speciality Speciality { get; set; }
     }
 }

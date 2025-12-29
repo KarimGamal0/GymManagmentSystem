@@ -10,6 +10,7 @@ namespace GymManagmentDAL.Entities
     {
         public string CategoryName { get; set; } = null!;
 
+        //One-To-Many
         #region Session-Category
         public ICollection<Session> Sessions { get; set; } = null!;
         #endregion

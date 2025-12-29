@@ -1,4 +1,5 @@
-﻿using GymManagmentBLL.Service.Interfaces;
+﻿using AutoMapper.Execution;
+using GymManagmentBLL.Service.Interfaces;
 using GymManagmentBLL.ViewModels.MemberViewModel;
 using GymManagmentBLL.ViewModels.TrainerViewModel;
 using GymManagmentDAL.Entities;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentBLL.Service.Classes
 {
-    internal class TrainerService : ITrainerService
+    public class TrainerService : ITrainerService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -38,7 +39,8 @@ namespace GymManagmentBLL.Service.Classes
                         City = createTrainer.City,
                         Street = createTrainer.Street,
                         BuildingNo = createTrainer.BuildingNumber
-                    }
+                    },
+                    Speciality = createTrainer.Speciality,
 
                 };
                 _unitOfWork.GetRepository<Trainer>().Add(trainer);
@@ -50,9 +52,17 @@ namespace GymManagmentBLL.Service.Classes
             }
         }
 
-        public bool DeleteMember(int trainerId)
+        public bool DeleteTrainer(int trainerId)
         {
-            throw new NotImplementedException();
+            var TrainerRepo = _unitOfWork.GetRepository<Trainer>();
+
+            var trainer = TrainerRepo.GetById(trainerId);
+
+
+
+            TrainerRepo.Delete(trainer);
+            return _unitOfWork.SaveChange() > 0;
+
         }
 
         public IEnumerable<TrainerViewModel> GetAllTrainers()
@@ -67,7 +77,8 @@ namespace GymManagmentBLL.Service.Classes
                 Name = trainer.Name,
                 Email = trainer.Email,
                 Phone = trainer.Phone,
-                Gender = trainer.Gender.ToString()
+                Gender = trainer.Gender.ToString(),
+                Speciality = trainer.Speciality,
             });
 
             return TrainerViewModel;
@@ -85,7 +96,8 @@ namespace GymManagmentBLL.Service.Classes
                 Name = trainer.Name,
                 Email = trainer.Email,
                 Phone = trainer.Phone,
-                Gender = trainer.Gender.ToString()
+                Gender = trainer.Gender.ToString(),
+                Speciality = trainer.Speciality
             };
 
             return viewModel;
@@ -108,12 +120,13 @@ namespace GymManagmentBLL.Service.Classes
             };
         }
 
-        public bool UpdateMember(int trainerId, TrainerToUpdateViewModel trainerToUpdate)
+        public bool UpdateTrainer(int trainerId, TrainerToUpdateViewModel trainerToUpdate)
         {
             try
             {
 
-                if (IsEmailExist(trainerToUpdate.Email) || IsPhoneExist(trainerToUpdate.Phone)) return false;
+                var phoneExist = _unitOfWork.GetRepository<Trainer>().GetAll(x => x.Phone == trainerToUpdate.Phone && x.Id != trainerId);
+                var emailExist = _unitOfWork.GetRepository<Trainer>().GetAll(x => x.Email == trainerToUpdate.Email && x.Id != trainerId);
 
                 var TrainerRepo = _unitOfWork.GetRepository<Trainer>();
 

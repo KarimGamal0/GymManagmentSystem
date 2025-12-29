@@ -19,40 +19,6 @@ namespace GymManagmentDAL.Repositories.Classes
             _dbContext = dbContext;
         }
 
-        public void Add(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Add(entity);
-        }
-
-        public void Delete(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Remove(entity);
-        }
-
-        public void Update(TEntity entity)
-        {
-            _dbContext.Set<TEntity>().Update(entity);
-        }
-
-
-        //public IEnumerable<TEntity> GetAll() => _dbContext.Set<TEntity>().ToList();
-
-        public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
-        {
-            if (condition is null)
-            {
-                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
-            }
-            else
-            {
-                return _dbContext.Set<TEntity>().AsNoTracking().Where(condition).ToList();
-            }
-        }
-
-        public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
-
-        
-
         #region old-way before unitofwork
         //public int Add(TEntity entity)
         //{
@@ -72,5 +38,36 @@ namespace GymManagmentDAL.Repositories.Classes
         //    return _dbContext.SaveChanges();
         //}
         #endregion
+
+        //public IEnumerable<TEntity> GetAll() => _dbContext.Set<TEntity>().ToList();
+
+        public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
+        {
+            if (condition is null)
+            {
+                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+            }
+            else
+            {
+                return _dbContext.Set<TEntity>().AsNoTracking().Where(condition).ToList();
+            }
+        }
+
+        public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
+
+        public void Add(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Add(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Update(entity);
+        }
+
+        public void Delete(TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Remove(entity);
+        }
     }
 }

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace GymManagmentBLL.Service.Interfaces
 {
-    internal interface ITrainerService
+    public interface ITrainerService
     {
         IEnumerable<TrainerViewModel> GetAllTrainers();
         bool CreateTrainer(CreateTrainerViewModel createTrainer);
         TrainerViewModel GetTrainerDetails(int trainerId);
         TrainerToUpdateViewModel? GetTrainerToUpdate(int trainerId);
-        bool UpdateMember(int trainerId, TrainerToUpdateViewModel trainerToUpdate);
-        bool DeleteMember(int trainerId);
+        bool UpdateTrainer(int trainerId, TrainerToUpdateViewModel trainerToUpdate);
+        bool DeleteTrainer(int trainerId);
     }
 }
