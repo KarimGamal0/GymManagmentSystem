@@ -39,11 +39,11 @@ namespace GymManagmentPL.Controllers
 
             if (result)
             {
-                TempData["SuccessMessage"] = "Member created successfully";
+                TempData["SuccessMessage"] = "Trainer created successfully";
             }
             else
             {
-                TempData["ErrorMessage"] = "Member failed to create";
+                TempData["ErrorMessage"] = "Trainer failed to create";
             }
 
             return RedirectToAction(nameof(Index));
@@ -74,14 +74,14 @@ namespace GymManagmentPL.Controllers
 
             if (id <= 0)
             {
-                TempData["ErrorMessage"] = "Id of member cant be 0 or negative";
+                TempData["ErrorMessage"] = "Id of trainer cant be 0 or negative";
                 return RedirectToAction(nameof(Index));
             }
 
             var member = _trainerService.GetTrainerToUpdate(id);
             if (member is null)
             {
-                TempData["ErrorMessage"] = "Member not found";
+                TempData["ErrorMessage"] = "trainer not found";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -98,11 +98,11 @@ namespace GymManagmentPL.Controllers
 
             if (result)
             {
-                TempData["SuccessMessage"] = "Member updated successfully";
+                TempData["SuccessMessage"] = "Trainer updated successfully";
             }
             else
             {
-                TempData["ErrorMessage"] = "Member failed to update";
+                TempData["ErrorMessage"] = "Trainer failed to update";
             }
 
             return RedirectToAction(nameof(Index));
@@ -112,7 +112,7 @@ namespace GymManagmentPL.Controllers
         {
             if (id <= 0)
             {
-                TempData["ErrorMessage"] = "Id of member cant be 0 or negative";
+                TempData["ErrorMessage"] = "Id of trainer cant be 0 or negative";
                 return RedirectToAction(nameof(Index));
             }
 
