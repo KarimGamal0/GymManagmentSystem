@@ -72,7 +72,7 @@ namespace GymManagmentBLL.Service.Classes
             var MappedSession = _mapper.Map<IEnumerable<Session>, IEnumerable<SessionViewModel>>(sessions);
             foreach (var session in MappedSession)
             {
-                session.AvailableSlot = session.Capacity - _unitOfWork.SessionRepository.GetCountOfBookedSlot(session.Id);
+                session.AvailableSlot = session.Capcity - _unitOfWork.SessionRepository.GetCountOfBookedSlot(session.Id);
             }
 
             return MappedSession;

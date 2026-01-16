@@ -59,7 +59,7 @@ namespace GymManagmentPL.Controllers
             if (result)
             {
                 TempData["SuccessMessage"] = "Session created sucessfully";
-                return View(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
             else
             {

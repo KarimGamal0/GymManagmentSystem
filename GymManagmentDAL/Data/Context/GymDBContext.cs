@@ -1,4 +1,5 @@
 ﻿using GymManagmentDAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentDAL.Data.Context
 {
-    public class GymDBContext : DbContext
+    public class GymDBContext : IdentityDbContext<ApplicationUser>                                    //old-one -->  //DbContext
     {
         #region Old ConnectionString Connection
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,7 +28,16 @@ namespace GymManagmentDAL.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Apply all Configuration Class
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<ApplicationUser>(E =>
+            {
+                E.Property(X => X.FirstName).HasColumnType("varchar").HasMaxLength(50);
+                E.Property(X => X.LastName).HasColumnType("varchar").HasMaxLength(50);
+
+            });
+
+            
         }
 
         #region DBSet

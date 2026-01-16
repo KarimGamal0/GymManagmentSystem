@@ -113,10 +113,6 @@ namespace GymManagmentBLL.Service.Classes
             return _unitOfWork.SaveChange() > 0;
         }
 
-        
-
-        
-
         public TrainerToUpdateViewModel? GetTrainerToUpdate(int trainerId)
         {
             //var member = _memeberRepository.GetById(MemberId);

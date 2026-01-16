@@ -10,7 +10,7 @@ namespace GymManagmentDAL.Entities
     {
 
         //Join Date = Created At of base entity
-        public string? Photo { get; set; }
+        public string? Photo { get; set; } = null!;
 
         //One-to-one Realtionship
         #region Healthrecord

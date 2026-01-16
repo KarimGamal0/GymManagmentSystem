@@ -1,10 +1,14 @@
 using GymManagmentBLL;
 using GymManagmentBLL.Service.Classes;
+using GymManagmentBLL.Service.Classes.AttachmentService;
 using GymManagmentBLL.Service.Interfaces;
+using GymManagmentBLL.Service.Interfaces.AttachmentService;
 using GymManagmentDAL.Data.Context;
 using GymManagmentDAL.Data.DataSeeding;
+using GymManagmentDAL.Entities;
 using GymManagmentDAL.Repositories.Classes;
 using GymManagmentDAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymManagmentPL
@@ -30,18 +34,43 @@ namespace GymManagmentPL
             //builder.Services.AddScoped<IPlanRepository, PlanRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+            builder.Services.AddScoped<IMemberSessionRepository, MemberSessionRepository>();
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
             builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
             builder.Services.AddScoped<IMemberService, MemberService>();
-            builder.Services.AddScoped<ITrainerService,TrainerService>();
+            builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IPlanService, PlanService>();
-            builder.Services.AddScoped<ISessionService,SessionService>();
+            builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IMemberShipService, MemeberShipService>();
+            //builder.Services.AddScoped<IMemberSessionService, MemberSessionService>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(confg =>
+            {
+                //confg.Password.RequireUppercase = true;
+                //confg.Password.RequireLowercase = true;
+                //confg.Password.RequiredLength = 6;
+                confg.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<GymDBContext>();
+
+            builder.Services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = "/Account/login";
+                option.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             var app = builder.Build();
             #region DataSeed
             using var scope = app.Services.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<GymDBContext>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
             var pendingMigration = dbContext.Database.GetPendingMigrations();
+
+
 
             if (pendingMigration?.Any() ?? false)
             {
@@ -49,9 +78,10 @@ namespace GymManagmentPL
             }
 
             GymDbContextSeeding.SeedData(dbContext, app.Environment.ContentRootPath);
+            IdentityDbContextSeeding.SeedDate(roleManager, userManager);
             #endregion
 
-           
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -67,9 +97,14 @@ namespace GymManagmentPL
             app.UseAuthorization();
 
             app.MapStaticAssets();
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Account}/{action=Login}/{id:?}")
+            //    .WithStaticAssets();
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Home}/{action=Index}/{id:?}")
                 .WithStaticAssets();
 
             app.Run();

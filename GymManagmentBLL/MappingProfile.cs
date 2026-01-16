@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using GymManagmentBLL.ViewModels.MemberSessionViewModel;
+using GymManagmentBLL.ViewModels.MemberShipViewModel;
 using GymManagmentBLL.ViewModels.MemberViewModel;
 using GymManagmentBLL.ViewModels.PlanViewModel;
 using GymManagmentBLL.ViewModels.SessionViewModel;
@@ -25,6 +27,10 @@ namespace GymManagmentBLL
             MapMember();
 
             MapPlan();
+
+            MapMemberShip();
+
+            MapMemberSession();
 
             #region Old-Way
             // Source ---> Destination
@@ -79,7 +85,7 @@ namespace GymManagmentBLL
             CreateMap<UpdateSessionViewModel, Session>().ReverseMap();
             CreateMap<Trainer, TrainerSelectViewModel>();
             CreateMap<Category, CategorySelectViewModel>()
-                .ForMember(dest => dest.Name,opt => opt.MapFrom(src=> src.CategoryName));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryName));
 
         }
 
@@ -124,6 +130,32 @@ namespace GymManagmentBLL
             CreateMap<UpdatePlanViewModel, Plan>()
            .ForMember(dest => dest.Name, opt => opt.Ignore())
            .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(src => DateTime.Now));
+
+        }
+
+        private void MapMemberShip()
+        {
+
+            CreateMap<Membership, MemberShipViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.Plan, opt => opt.MapFrom(src => src.Plan.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.EndDate, opt => opt.Ignore());
+
+
+            CreateMap<CreateMemberShipViewModel, Membership>()
+                .ForMember(dest => dest.Status, opt => opt.Ignore())
+                .ForMember(dest => dest.EndDate, opt => opt.Ignore()).ReverseMap();
+
+            CreateMap<Member, MemberSelectViewModel>();
+            CreateMap<Plan, PlanSelectViewModel>();
+        }
+
+        private void MapMemberSession()
+        {
+            CreateMap<MemberSession, MemberSessionViewModel>()
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SessionId))
+                 .ForMember(dest => dest.Members, opt => opt.MapFrom(src => ));
 
         }
 
