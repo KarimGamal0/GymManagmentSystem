@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<SessionViewModel>
+@{
+    ViewData["Title"] = "Members Sessions";
+}
 
 <div class="container">
     @if (Model != null && Model.Any())
@@ -118,7 +121,7 @@
                             <div class="card-footer bg-white border-0">
                                 <div class="d-grid gap-2">
                                     @*href="MemberSession/GetMembersForOngoingSessions/sessionId"*@
-                                    <a asp-action="MemberSession"  class="btn btn-outline btn-sm">
+                                    <a asp-controller="MemberSession" asp-action="GetMembersForOngoingSession" asp-route-id="@item.Id" class="btn btn-outline btn-sm">
                                         <i class="bi bi-eye me-1"></i> View Members
                                     </a>
                                 </div>

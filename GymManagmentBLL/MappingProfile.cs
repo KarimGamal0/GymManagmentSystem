@@ -154,9 +154,13 @@ namespace GymManagmentBLL
         private void MapMemberSession()
         {
             CreateMap<MemberSession, MemberSessionViewModel>()
-                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.SessionId))
-                 .ForMember(dest => dest.Members, opt => opt.MapFrom(src => ));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.SessionId))
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(x => x.Member.Name));
 
+            CreateMap<MemberSession, CreateMemberSessionViewModel>()
+                .ForMember(dest => dest.SessionId, opt => opt.MapFrom(x => x.SessionId))
+                .ForMember(dest => dest.MemberId, opt => opt.MapFrom(x => x.MemberId)).ReverseMap();
+                
         }
 
     }

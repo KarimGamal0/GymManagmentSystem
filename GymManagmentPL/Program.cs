@@ -44,7 +44,7 @@ namespace GymManagmentPL
             builder.Services.AddScoped<ISessionService, SessionService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IMemberShipService, MemeberShipService>();
-            //builder.Services.AddScoped<IMemberSessionService, MemberSessionService>();
+            builder.Services.AddScoped<IMemberSessionService, MemberSessionService>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(confg =>
@@ -97,15 +97,15 @@ namespace GymManagmentPL
             app.UseAuthorization();
 
             app.MapStaticAssets();
-            //app.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Account}/{action=Login}/{id:?}")
-            //    .WithStaticAssets();
-
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id:?}")
+                pattern: "{controller=Account}/{action=Login}/{id:?}")
                 .WithStaticAssets();
+
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{action=Index}/{id:?}")
+            //    .WithStaticAssets();
 
             app.Run();
         }

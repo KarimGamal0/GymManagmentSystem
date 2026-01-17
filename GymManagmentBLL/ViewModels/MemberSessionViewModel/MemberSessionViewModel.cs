@@ -12,7 +12,9 @@ namespace GymManagmentBLL.ViewModels.MemberSessionViewModel
 
         public int Id { get; set; }
 
-        public ICollection<Member> Members { get; set; }
+        public string MemberName { get; set; } = null!;
+
+        public DateOnly BookingDate { get; set; }
 
     }
 }

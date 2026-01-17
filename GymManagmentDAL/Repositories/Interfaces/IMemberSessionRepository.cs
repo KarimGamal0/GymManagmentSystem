@@ -9,7 +9,7 @@ namespace GymManagmentDAL.Repositories.Interfaces
 {
     public interface IMemberSessionRepository
     {
-        public MemberSession GetSessionMembers(int sessionId);
+        public IEnumerable<MemberSession> GetSessionMembers(int sessionId);
 
     }
 }

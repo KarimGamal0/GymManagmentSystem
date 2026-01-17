@@ -12,8 +12,11 @@ namespace GymManagmentBLL.Service.Interfaces
     {
         //public IEnumerable<MemberSessionViewModel> GetAllMemberSessions();
 
-        public MemberSessionViewModel GetMembersOfSession(int SessionId);
+        public IEnumerable<MemberSessionViewModel> GetMembersOfSession(int SessionId);
 
-        public IEnumerable<MemberSelectViewModel> GetMembersForSessionDropDown(int sessionId);
+        public IEnumerable<MemberSelectViewModel> GetMemberForDropDown();
+
+        public bool CreateMemberSession(int id, CreateMemberSessionViewModel createMemberSession);
+
     }
 }

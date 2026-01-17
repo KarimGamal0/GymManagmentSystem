@@ -19,11 +19,10 @@ namespace GymManagmentDAL.Repositories.Classes
             _dBContext = dBContext;
         }
 
-        public MemberSession GetSessionMembers(int sessionId)
+        public IEnumerable<MemberSession> GetSessionMembers(int sessionId)
         {
-            return _dBContext.MemberSessions.Include(x => x.Session).ThenInclude(x => x.SessionMembers)
-                .First(x => x.SessionId == sessionId);
+            return _dBContext.MemberSessions.Include(x=> x.Session).Include(x=> x.Member).Where(x=> x.SessionId == sessionId).ToList();
         }
-    } }
     }
 }
+
